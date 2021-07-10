@@ -42,14 +42,12 @@ Get-Content data.txt | node moviePrediction.js
 
 If you want to try the movie predictions according to your best friends'taste and rankings, edit the *data.txt* file or create another file and enter informations with the following rule :
 
-```console
-First line : Your own rankings of an x amount of movies you have watched from 0 to 10 included and separated by spaces
-Second line : The number of friends of yours who have watched those movies and who have also watched the movie you want to predict your future ranking of.
-3rd line : The number of best friends you have out of all your friends
-4th to N line : Each of your friend's rankings of the movies you have watched followed by the next movie you want to watch from 0 to 10 included and separated by spaces
-```
+*First line : Your own rankings of an x amount of movies you have watched from 0 to 10 included and separated by spaces
+*Second line : The number of friends of yours who have watched those movies and who have also watched the movie you want to predict your future ranking of.
+*3rd line : The number of best friends you have out of all your friends
+*4th to N line : Each of your friend's rankings of the movies you have watched followed by the next movie you want to watch from 0 to 10 included and separated by spaces
 
-So here's an example of the type of input to enter in the data file :
+Here's an example of the type of input to enter in the data file :
 
 ```console
 10 7 3 4 3
