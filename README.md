@@ -61,3 +61,34 @@ Here's an example of the type of input to enter in the data file :
 9 10 10 9 10 10
 8 9 2 4 3 4
 ```
+
+
+# Debug exercise
+
+In the tic-tac-toe-debug folder, you can find the tic-tac-toe I debugged.
+
+The main issue with the given Tic-tac-toe game was that it wasn't fully functionnal as the game couldn't handle diagonal winners.
+
+#### 1. To run the debugged tic-tac-toe game
+
+Enter the directory in your terminal : 
+
+```console
+cd logic-test/tic-tac-toe-debug/react-app
+```
+
+Install the dependencies : 
+
+```console
+npm install
+```
+
+Run the game :
+
+```console
+npm start
+```
+
+#### 2. First step of problem solving :
+
+First step of debugging for me was to test the game by running it and trying to reproduce the problem mentionned by the person who found the bug.
