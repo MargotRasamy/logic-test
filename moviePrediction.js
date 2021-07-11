@@ -19,33 +19,28 @@ const readline_object = readline.createInterface({
  
  
  function ContestResponse(){
-	function convertStrToIntArray (inputLine) {
-	    return inputLine.split(' ').map(item => parseInt(item))
-	}
-	
 	let myNotes = convertStrToIntArray(input[0])
     let myFriendsNb = parseInt(input[1])
     let myBestFriendsNb = parseInt(input[2])
     let firstFriendLineIndex = 3
-    const sumReducer = (accumulator, currentValue) => accumulator + currentValue
-    
+
+	function convertStrToIntArray (inputLine) {
+		return inputLine.split(' ').map(item => parseInt(item))
+	}
     
 	function getNotesDifference (friendNotesLine) {
-	    
 	    let friendNotes = convertStrToIntArray(friendNotesLine)
-	   
 	    let notesDifferences = myNotes.map((myNote, index) => {
 	        return Math.abs(myNote - friendNotes[index])
 	    })
 	    
-	    return notesDifferences.reduce(sumReducer)
-	  
+	    return notesDifferences.reduce((accumulator, currentValue) => accumulator + currentValue)
 	}
 	
 	function getAllFriendsNotes () {
 	    let allNotesDiff = []
 	   
-	    for (let i=0; i<myFriendsNb; i++) {
+	    for (let i = 0; i < myFriendsNb; i++) {
             let friendRankings = convertStrToIntArray(input[i + firstFriendLineIndex])
 	        allNotesDiff.push(
 	            {
@@ -62,7 +57,6 @@ const readline_object = readline.createInterface({
 	    let bestFriendsNotes = [] 
 	    bestFriendsNotes = getAllFriendsNotes().sort((a, b) => a.notesDiff - b.notesDiff)
 	    return bestFriendsNotes.slice(0, myBestFriendsNb)
-	    
 	}
 	
 	function getLastMoviePredictionNote () {
