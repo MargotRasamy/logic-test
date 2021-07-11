@@ -109,6 +109,12 @@ function calculateWinner(squares) {
     // Diagonnal wins refer to these cells :
     [0, 4, 8],
     [2, 4, 6]
+
+    // I would also suggest the use of methods such as horizontalWins(), verticalWins() or diagonalWins() 
+    // that I created below to get all the conditions like this :
+    // ...horizontalWins(3,3)
+    // ...verticalWins(3,3)
+    // ...diagonalWins(3)
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
@@ -118,3 +124,47 @@ function calculateWinner(squares) {
   }
   return null;
 }
+
+function horizontalWins (xAxisCells, yAxisCells) {
+  let cells = []
+  
+  for (let i = 0; i< yAxisCells ; i++) {
+  	cells.push([])
+  	for (let j = i * xAxisCells; j < i * xAxisCells + xAxisCells ; j++) {
+    	cells[i].push(j)
+    }
+  }
+  
+ return cells
+}
+
+function verticalWins (xAxisCells, yAxisCells) {
+  let cells = []
+  
+  for (let i = 0; i< yAxisCells ; i++) {
+    cells.push([])
+    for (let j = i; j < i + (xAxisCells * xAxisCells) ; j+= xAxisCells) {
+      cells[i].push(j)
+    }
+  }
+  
+ return cells
+}
+
+// For diagonals, we'll only have one argument as we need a square board to get the 2 diagonals.
+function diagonalWins (dimensionCells) {
+  let cells = [[],[]]
+  
+    for (let j = 0; j < dimensionCells * dimensionCells ; j += (dimensionCells + 1) ) {
+      cells[0].push(j)
+    }
+    
+    for (let j = dimensionCells - 1; j < (dimensionCells * dimensionCells) - (dimensionCells - 1) ; j += (dimensionCells - 1) ) {
+      cells[1].push(j)
+    }
+  
+ return cells
+}
+
+
+
