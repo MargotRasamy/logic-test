@@ -94,7 +94,8 @@ npm start
 * First step of debugging for me was to test the game by running it and trying to reproduce the problem mentionned by the person who found the bug.
 To achieve this first step, I execute the game and try to get a diagonal winner.
 
-
+![Step 1](https://user-images.githubusercontent.com/47738956/125207559-445ace80-e28d-11eb-9518-b02b5674faa5.png)
+![Step 1 bis](https://user-images.githubusercontent.com/47738956/125207561-47ee5580-e28d-11eb-9988-4affd7f33ef5.png)
 
 First thing I see is that when I get a diagonal winner, the game doesn't inform me there is a winner and which one it is, unlike when I try to get a horizontal or vertical win.
 
@@ -107,11 +108,6 @@ The text "Winner : X" is not displayed as expected ! So first possible hypothesi
 
 * According to the previous step, the bug probably has something to do with the conditions of display of the winner.
 I look up for the piece of code where we display the winner :
-
-
-And I can see that in the render function, we check the condition with the variable winner that points to a function called calculateWinner().
-If calculateWinner() returns true, the status used to display the game status gives the game winner.
-So if the winner is not displayed, the issue can only be in the winner condition.
 
 ```console
 render() {
@@ -126,9 +122,11 @@ render() {
 }
 ```
 
+And I can see that in the render function, we check the condition with the variable winner that points to a function called calculateWinner().
+If calculateWinner() returns true, the status used to display the game status gives the game winner.
+So if the winner is not displayed, the issue can only be in the winner condition. Therefore, let's take a loot at the calculateWinner() function.
+
 * Analyze the block of code that contains the issue
-
-
 
 ```console
 function calculateWinner(squares) {
@@ -155,16 +153,28 @@ Let's break down the code of this function.
 The function calculateWinner() takes an item called squares as an argument and in this game, squares will refer to this.state.squares.
 This.state.squares is an array filled with null elements and has the length equal to the size of the board. 
 In tic-tac-toe, we have a 3 x 3 board game. Therefore, this.state.squares is our board with a length of 9.
+We can see that in the state inside the constructor :
 
 ```console
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-  ];
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null),
+      xIsNext: true,
+    };
+  }
+  
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      squares: squares, 
+      xIsNext: !this.state.xIsNext,
+    });
+  }
 ```
 
 When a player chooses a cell, his name is written inside the cell. In this game, it's either 'X' or 'O'.
@@ -212,7 +222,8 @@ We can finally proceed to solve our problem by adding the combinations [0, 4, 8]
 
 We finally debugged our game ! We can try playing it now !
 
-
+![Debug 1](https://user-images.githubusercontent.com/47738956/125207746-41aca900-e28e-11eb-95ab-ad042d77536f.png)
+![Debug 2](https://user-images.githubusercontent.com/47738956/125207750-45403000-e28e-11eb-8e34-9d25a1f5a7ee.png)
 
 PS: For this issue, it was a comportemental bug, which means we were missing something in terms of what we want our code to do.
 But usually, if we are trying to debug something that causes an error, the best thing to do is to analyze the error and again, 
